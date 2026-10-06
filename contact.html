@@ -1,0 +1,545 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumiere | Skin Consultation</title>
+  <!-- Favicon: inline SVG, no extra request -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23c47668'/><path d='M16 5.5c4.2 5.4 6.7 9 6.7 12.1a6.7 6.7 0 0 1-13.4 0C9.3 14.5 11.8 10.9 16 5.5z' fill='%23fdfbf7'/></svg>">
+  <meta name="theme-color" content="#c47668">
+  <meta name="description" content="Get a free personalized skin consultation from the Lumiere experts.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    /* The page-header above clears the fixed nav, so this only needs
+       normal section spacing. */
+    .contact-section {
+      padding: var(--space-6) 0 var(--space-8);
+    }
+
+    /* Two cards on one grid row — align-items: stretch keeps them
+       exactly the same height whatever their content does. */
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: var(--space-3);
+      align-items: stretch;
+    }
+
+    /* Form sits on the left, contact details on the right.
+       Ordered here rather than in the markup so the details still come
+       first in the reading/tab order. */
+    .contact-form-container {
+      order: 1;
+    }
+
+    .contact-info {
+      order: 2;
+    }
+
+    .contact-info,
+    .contact-form-container {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .contact-info {
+      background:
+        radial-gradient(28rem 18rem at 15% 0%, var(--color-accent-soft), transparent 65%),
+        var(--bg-secondary);
+      text-align: center;
+    }
+
+    .contact-info .lead {
+      max-width: 42ch;
+      margin-inline: auto;
+    }
+
+    .contact-form-container {
+      background: var(--bg-card);
+    }
+
+    /* Mirror image of the map trick: if the form card is the shorter one,
+       the routine textarea takes up the slack instead of the button floating. */
+    .contact-form-container form {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    #groupMessage {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    #groupMessage textarea {
+      flex-grow: 1;
+    }
+
+    /* The intro block grows so the map soaks up any spare height
+       instead of leaving a gap above the social row. */
+    .contact-intro {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    /* The group is centred as a block, but the rows share one left edge
+       inside it — centring each row individually leaves them ragged. */
+    .contact-details {
+      margin-top: var(--space-4);
+      width: fit-content;
+      max-width: 100%;
+      margin-inline: auto;
+      text-align: start;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 1rem;
+      padding: 10px 16px 10px 10px;
+      border-radius: var(--radius-round);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      transition: var(--transition);
+    }
+
+    html[dir="rtl"] .contact-item {
+      padding: 10px 10px 10px 16px;
+    }
+
+    .contact-item:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+    }
+
+    .contact-item i {
+      flex-shrink: 0;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      font-size: 1.15rem;
+      color: var(--color-accent);
+      background: var(--color-accent-soft);
+    }
+
+    .map-embed {
+      position: relative;
+      width: 100%;
+      flex: 1 1 auto;
+      min-height: 240px;
+      margin-top: var(--space-4);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .map-embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* Tone the light map tiles down to sit in the dark theme */
+    [data-theme="dark"] .map-embed iframe {
+      filter: invert(0.92) hue-rotate(180deg) saturate(0.8);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: var(--space-3);
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+    }
+
+    .social-links a:hover {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* Form Styles */
+    .form-success-msg {
+      display: none;
+      padding: var(--space-3);
+      background: rgba(25, 135, 84, 0.1);
+      border: 1px solid #198754;
+      color: #198754;
+      border-radius: 8px;
+      margin-bottom: var(--space-4);
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-success-msg.show {
+      display: flex;
+    }
+
+    @media (max-width: 900px) {
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .map-embed {
+        flex: 0 0 auto;
+        height: 260px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .contact-section {
+        padding: var(--space-5) 0 var(--space-6);
+      }
+
+      .contact-info,
+      .contact-form-container {
+        padding: var(--space-3);
+        border-radius: var(--radius-md);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo"><img src="assets/images/lumiere-logo.svg" alt="Lumiere" width="219"
+            height="80"></a>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="products.html" class="nav-link">Products</a></li>
+          <li><a href="treatment.html" class="nav-link">Treatments</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="blog.html" class="nav-link">Blog</a></li>
+          <li><a href="contact.html" class="nav-link active">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="icon-btn theme-toggle" aria-label="Toggle Theme"><i class="ph ph-moon"></i></button>
+          <a href="login.html" class="btn btn-outline" style="padding: 8px 20px;">Login</a>
+        </div>
+        <button class="hamburger" aria-label="Open Menu"><i class="ph ph-list"></i></button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- DRAWER -->
+  <div class="drawer-overlay"></div>
+  <div class="drawer">
+    <div class="drawer-header">
+      <div class="logo"><img src="assets/images/lumiere-logo.svg" alt="Lumiere" width="219" height="80"></div>
+      <button class="drawer-close" aria-label="Close Menu"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="drawer-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="products.html" class="nav-link">Products</a>
+      <a href="treatment.html" class="nav-link">Treatments</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="contact.html" class="nav-link active">Contact</a>
+    </div>
+    <div class="drawer-actions">
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Toggle Theme"><i class="ph ph-moon"></i></button>
+      </div>
+      <a href="login.html" class="btn btn-outline">Login</a>
+    </div>
+  </div>
+
+  <main>
+    <div class="page-header page-hero-photo">
+      <div class="page-hero-media" aria-hidden="true">
+        <img src="assets/images/hero-contact-support.jpg" alt="">
+      </div>
+      <div class="container">
+        <span class="eyebrow">We're here to help</span>
+        <h1>Let's talk about <span class="text-gradient">your skin</span></h1>
+        <p class="lead">Send us a question or request a free consultation — a skin advisor
+          answers every message personally.</p>
+      </div>
+    </div>
+
+    <section class="contact-section">
+      <div class="container">
+        <div class="contact-wrapper">
+
+          <!-- CONTACT INFO -->
+          <div class="contact-info animate-on-scroll">
+            <div class="contact-intro">
+              <h2>Get in Touch</h2>
+              <p class="lead">Whether you need help building a routine or have a question about an order, our experts
+                are here.</p>
+
+              <div class="contact-details">
+                <div class="contact-item">
+                  <i class="ph ph-envelope"></i>
+                  <span>hello@Lumiere.com</span>
+                </div>
+                <div class="contact-item">
+                  <i class="ph ph-phone"></i>
+                  <span>+1 (800) 123-4567</span>
+                </div>
+                <div class="contact-item">
+                  <i class="ph ph-map-pin"></i>
+                  <span>123 Skincare Ave, Glow City, GC 10001</span>
+                </div>
+              </div>
+
+              <!-- Map: replace the q= value with your real address,
+               e.g. q=123+Skincare+Ave,+Glow+City — no API key needed. -->
+              <div class="map-embed">
+                <iframe title="Map showing the Lumiere store location"
+                  src="https://www.google.com/maps?q=40.7128,-74.0060&z=14&output=embed" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+              </div>
+            </div>
+
+            <div class="social-links">
+              <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+              <a href="#" aria-label="TikTok"><i class="ph ph-tiktok-logo"></i></a>
+              <a href="#" aria-label="Pinterest"><i class="ph ph-pinterest-logo"></i></a>
+            </div>
+          </div>
+
+          <!-- CONSULTATION FORM -->
+          <div class="contact-form-container animate-on-scroll delay-1">
+            <h2>Skin Consultation</h2>
+            <p class="text-muted" style="margin-bottom: var(--space-4);">Fill out the form below and we'll get back to
+              you with personalized recommendations.</p>
+
+            <div class="form-success-msg" id="successMsg">
+              <i class="ph ph-check-circle" style="font-size: 1.5rem;"></i>
+              <span>Thank you! Your consultation request has been sent successfully.</span>
+            </div>
+
+            <form id="consultationForm" action="https://formspree.io/f/placeholder" method="POST" novalidate>
+
+              <div class="form-group" id="groupName">
+                <label class="form-label" for="name">Full Name *</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Jane Doe">
+                <div class="error-message">Please enter your name.</div>
+              </div>
+
+              <div class="form-group" id="groupEmail">
+                <label class="form-label" for="email">Email Address *</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="jane@example.com">
+                <div class="error-message">Please enter a valid email address.</div>
+              </div>
+
+              <div class="form-group" id="groupSkinType">
+                <label class="form-label" for="skinType">Skin Type *</label>
+                <select id="skinType" name="skinType" class="form-control">
+                  <option value="" disabled selected>Select your skin type</option>
+                  <option value="oily">Oily</option>
+                  <option value="dry">Dry</option>
+                  <option value="combination">Combination</option>
+                  <option value="sensitive">Sensitive</option>
+                  <option value="normal">Normal</option>
+                </select>
+                <div class="error-message">Please select your skin type.</div>
+              </div>
+
+              <div class="form-group" id="groupConcern">
+                <label class="form-label" for="concern">Primary Concern</label>
+                <input type="text" id="concern" name="concern" class="form-control"
+                  placeholder="e.g., Redness, Dryness, Breakouts">
+              </div>
+
+              <div class="form-group" id="groupMessage">
+                <label class="form-label" for="message">Tell us more about your current routine *</label>
+                <textarea id="message" name="message" class="form-control" rows="5"
+                  placeholder="What products are you currently using?"></textarea>
+                <div class="error-message">Please provide some details about your routine.</div>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: var(--space-2);">Submit
+                Consultation Request</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="logo" style="margin-bottom: var(--space-2);"><img
+              src="assets/images/lumiere-logo.svg" alt="Lumiere" width="219" height="80"></a>
+          <p class="text-muted" style="max-width: 300px;">
+            Soft, safe, and transparent skincare designed to bring out your natural, radiant glow.
+          </p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+            <a href="#" aria-label="TikTok"><i class="ph ph-tiktok-logo"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="ph ph-pinterest-logo"></i></a>
+            <a href="contact.html" aria-label="Email"><i class="ph ph-envelope-simple"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <div class="footer-links">
+            <a href="products.html">All Products</a>
+            <a href="products.html?category=cleansers">Cleansers</a>
+            <a href="products.html?category=serums">Serums</a>
+            <a href="products.html?category=moisturizers">Moisturizers</a>
+            <a href="products.html?category=sunscreens">Sunscreens</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Discover</h4>
+          <div class="footer-links">
+            <a href="about.html">Our Story</a>
+            <a href="blog.html">The Glow Blog</a>
+            <a href="products.html#consultation">Skin Consultation</a>
+            <a href="about.html">Ingredients Glossary</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Support</h4>
+          <div class="footer-links">
+            <a href="contact.html">Contact Us</a>
+            <a href="contact.html">Shipping &amp; Returns</a>
+            <a href="login.html">Your Account</a>
+            <a href="register.html">Create Account</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Lumiere. All rights reserved.</p>
+        <p>Made with care for every skin type.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Form Validation Script
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('consultationForm');
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const skinTypeInput = document.getElementById('skinType');
+      const messageInput = document.getElementById('message');
+      const successMsg = document.getElementById('successMsg');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        let isValid = true;
+
+        // Reset errors
+        document.querySelectorAll('.form-group').forEach(group => group.classList.remove('invalid'));
+        document.querySelectorAll('.form-control').forEach(ctrl => {
+          ctrl.classList.remove('form-error');
+          ctrl.classList.remove('form-success');
+        });
+
+        // Validate Name
+        if (!nameInput.value.trim()) {
+          document.getElementById('groupName').classList.add('invalid');
+          nameInput.classList.add('form-error');
+          isValid = false;
+        } else {
+          nameInput.classList.add('form-success');
+        }
+
+        // Validate Email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailInput.value.trim())) {
+          document.getElementById('groupEmail').classList.add('invalid');
+          emailInput.classList.add('form-error');
+          isValid = false;
+        } else {
+          emailInput.classList.add('form-success');
+        }
+
+        // Validate Skin Type
+        if (!skinTypeInput.value) {
+          document.getElementById('groupSkinType').classList.add('invalid');
+          skinTypeInput.classList.add('form-error');
+          isValid = false;
+        } else {
+          skinTypeInput.classList.add('form-success');
+        }
+
+        // Validate Message
+        if (!messageInput.value.trim()) {
+          document.getElementById('groupMessage').classList.add('invalid');
+          messageInput.classList.add('form-error');
+          isValid = false;
+        } else {
+          messageInput.classList.add('form-success');
+        }
+
+        if (isValid) {
+          // Simulate form submission
+          form.style.display = 'none';
+          successMsg.classList.add('show');
+        }
+      });
+
+      // Remove error on input
+      const inputs = [nameInput, emailInput, skinTypeInput, messageInput];
+      inputs.forEach(input => {
+        input.addEventListener('input', () => {
+          input.parentElement.classList.remove('invalid');
+          input.classList.remove('form-error');
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
+
+
+
+

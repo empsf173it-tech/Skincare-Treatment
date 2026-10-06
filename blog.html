@@ -1,0 +1,534 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumiere | The Glow Blog</title>
+  <!-- Favicon: inline SVG, no extra request -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23c47668'/><path d='M16 5.5c4.2 5.4 6.7 9 6.7 12.1a6.7 6.7 0 0 1-13.4 0C9.3 14.5 11.8 10.9 16 5.5z' fill='%23fdfbf7'/></svg>">
+  <meta name="theme-color" content="#c47668">
+  <meta name="description" content="Skincare tips, ingredient spotlights, and routines from the Lumiere experts.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--space-5);
+    }
+
+    .blog-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-soft);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-color);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .blog-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+    }
+
+    .blog-content {
+      padding: var(--space-4);
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Every text block below is a fixed-line box, so the meta, title,
+       excerpt and link all start and end on the same line across cards. */
+    .blog-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: var(--space-2);
+      text-align: center;
+      line-height: 1.4;
+      width: 100%;
+      min-height: 1.4em;
+      /* one line */
+    }
+
+    .blog-tag {
+      color: var(--color-accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .blog-title {
+      font-size: 1.25rem;
+      line-height: 1.3;
+      margin-bottom: var(--space-2);
+      width: 100%;
+      /* Reserve two lines and cap at two, so a one-line title
+         still pushes the excerpt down to the same place. */
+      min-height: calc(1.3em * 2);
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      overflow: hidden;
+    }
+
+    .blog-excerpt {
+      color: var(--text-muted);
+      margin-bottom: var(--space-4);
+      flex-grow: 1;
+      text-align: justify;
+      text-align-last: center;
+      width: 100%;
+      line-height: 1.6;
+      min-height: calc(1.6em * 3);
+      /* three lines */
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      overflow: hidden;
+    }
+
+    .blog-read-more {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .blog-read-more:hover {
+      color: var(--color-accent);
+    }
+
+    /* --- FAQs --- */
+    .faq-section {
+      background:
+        radial-gradient(34rem 20rem at 85% 0%, var(--color-sage-soft), transparent 62%),
+        var(--bg-secondary);
+      border-block: 1px solid var(--border-color);
+    }
+
+    .faq-list {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    /* <details> rather than scripted panels — collapsing works without JS,
+       and screen readers get the expanded state for free. */
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-xs);
+      overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .faq-item:hover {
+      border-color: var(--border-strong);
+    }
+
+    .faq-item[open] {
+      border-color: var(--color-accent-ring);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      cursor: pointer;
+      list-style: none;
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      color: var(--text-main);
+      text-align: start;
+    }
+
+    /* Hide the native disclosure triangle */
+    .faq-q::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-q::marker {
+      content: '';
+    }
+
+    .faq-q:hover {
+      color: var(--color-accent);
+    }
+
+    .faq-icon {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--color-accent-soft);
+      color: var(--color-accent);
+      font-size: 0.95rem;
+      transition: transform 0.35s var(--ease-out);
+    }
+
+    .faq-item[open] .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-a {
+      padding: 0 var(--space-3) var(--space-3);
+      color: var(--text-muted);
+      font-size: 0.94rem;
+      line-height: 1.65;
+      animation: faqReveal 0.35s var(--ease-out);
+    }
+
+    .faq-a p+p {
+      margin-top: var(--space-2);
+    }
+
+    @keyframes faqReveal {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .faq-a {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo"><img src="assets/images/lumiere-logo.svg" alt="Lumiere" width="219"
+            height="80"></a>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="products.html" class="nav-link">Products</a></li>
+          <li><a href="treatment.html" class="nav-link">Treatments</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="blog.html" class="nav-link active">Blog</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="icon-btn theme-toggle" aria-label="Toggle Theme"><i class="ph ph-moon"></i></button>
+          <a href="login.html" class="btn btn-outline" style="padding: 8px 20px;">Login</a>
+        </div>
+        <button class="hamburger" aria-label="Open Menu"><i class="ph ph-list"></i></button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- DRAWER -->
+  <div class="drawer-overlay"></div>
+  <div class="drawer">
+    <div class="drawer-header">
+      <div class="logo"><img src="assets/images/lumiere-logo.svg" alt="Lumiere" width="219" height="80"></div>
+      <button class="drawer-close" aria-label="Close Menu"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="drawer-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="products.html" class="nav-link">Products</a>
+      <a href="treatment.html" class="nav-link">Treatments</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="blog.html" class="nav-link active">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <div class="drawer-actions">
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Toggle Theme"><i class="ph ph-moon"></i></button>
+      </div>
+      <a href="login.html" class="btn btn-outline">Login</a>
+    </div>
+  </div>
+
+  <main>
+    <div class="page-header page-hero-photo">
+      <div class="page-hero-media" aria-hidden="true">
+        <img src="assets/images/hero-blog-journal.jpg" alt="">
+      </div>
+      <div class="container">
+        <span class="eyebrow">Journal</span>
+        <h1>The <span class="text-gradient">Glow Blog</span></h1>
+        <p class="lead">Skincare education, ingredient deep-dives, and community stories.</p>
+      </div>
+    </div>
+
+    <section>
+      <div class="container">
+        <div class="blog-grid">
+
+          <!-- Article 1 -->
+          <article class="blog-card animate-on-scroll">
+            <a href="blog-single.html">
+              <img src="assets/images/blog-evening-routine-repair.jpg" alt="Skincare routine" class="blog-img"
+                width="800" height="500" loading="lazy">
+            </a>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-tag">Routines</span>
+                <span>•</span>
+                <span>Oct 12, 2026</span>
+              </div>
+              <h3 class="blog-title"><a href="blog-single.html">The Ultimate Evening Routine for Repair</a></h3>
+              <p class="blog-excerpt">Discover how to layer your serums and moisturizers to maximize overnight skin
+                regeneration.</p>
+              <a href="blog-single.html" class="blog-read-more">Read Article</a>
+            </div>
+          </article>
+
+          <!-- Article 2 -->
+          <article class="blog-card animate-on-scroll delay-1">
+            <a href="blog-single.html">
+              <img src="assets/images/blog-niacinamide-multitasker.jpg" alt="Ingredients" class="blog-img" width="800"
+                height="500" loading="lazy">
+            </a>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-tag">Ingredient Spotlight</span>
+                <span>•</span>
+                <span>Oct 05, 2026</span>
+              </div>
+              <h3 class="blog-title"><a href="blog-single.html">Why Niacinamide is the Ultimate Multitasker</a></h3>
+              <p class="blog-excerpt">From minimizing pores to evening out tone, here's why vitamin B3 deserves a spot
+                in your cabinet.</p>
+              <a href="blog-single.html" class="blog-read-more">Read Article</a>
+            </div>
+          </article>
+
+          <!-- Article 3 -->
+          <article class="blog-card animate-on-scroll delay-2">
+            <a href="blog-single.html">
+              <img src="assets/images/blog-spf-myths.jpg" alt="Sunscreen" class="blog-img" width="800" height="500"
+                loading="lazy">
+            </a>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-tag">Skincare Tips</span>
+                <span>•</span>
+                <span>Sep 28, 2026</span>
+              </div>
+              <h3 class="blog-title"><a href="blog-single.html">Debunking Common SPF Myths</a></h3>
+              <p class="blog-excerpt">Do you really need sunscreen indoors? We break down the most persistent sun
+                protection myths.</p>
+              <a href="blog-single.html" class="blog-read-more">Read Article</a>
+            </div>
+          </article>
+
+          <!-- Article 4 -->
+          <article class="blog-card animate-on-scroll delay-3">
+            <a href="blog-single.html">
+              <img src="assets/images/blog-inci-list-guide.jpg" alt="Serum bottle and ingredient label" class="blog-img"
+                width="800" height="500" loading="lazy">
+            </a>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-tag">Ingredient Spotlight</span>
+                <span>•</span>
+                <span>Sep 19, 2026</span>
+              </div>
+              <h3 class="blog-title"><a href="blog-single.html">How to Read an INCI List in 60 Seconds</a></h3>
+              <p class="blog-excerpt">Ingredients are listed by concentration — here's where the actives should sit on
+                the label.</p>
+              <a href="blog-single.html" class="blog-read-more">Read Article</a>
+            </div>
+          </article>
+
+          <!-- Article 5 -->
+          <article class="blog-card animate-on-scroll delay-4">
+            <a href="blog-single.html">
+              <img src="assets/images/blog-skin-barrier-explained.jpg" alt="Barrier repair cream" class="blog-img"
+                width="800" height="500" loading="lazy">
+            </a>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-tag">Skincare Tips</span>
+                <span>•</span>
+                <span>Sep 11, 2026</span>
+              </div>
+              <h3 class="blog-title"><a href="blog-single.html">What "Skin Barrier" Actually Means</a></h3>
+              <p class="blog-excerpt">Tightness, stinging and sudden redness point at one thing. Here's how ceramides
+                fix it.</p>
+              <a href="blog-single.html" class="blog-read-more">Read Article</a>
+            </div>
+          </article>
+
+          <!-- Article 6 -->
+          <article class="blog-card animate-on-scroll delay-5">
+            <a href="blog-single.html">
+              <img src="assets/images/blog-layering-actives.jpg" alt="Layered skincare products" class="blog-img"
+                width="800" height="500" loading="lazy">
+            </a>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-tag">Routines</span>
+                <span>•</span>
+                <span>Sep 02, 2026</span>
+              </div>
+              <h3 class="blog-title"><a href="blog-single.html">Layering Actives Without the Irritation</a></h3>
+              <p class="blog-excerpt">Retinal, acids and vitamin C can share a routine — as long as they don't share a
+                night.</p>
+              <a href="blog-single.html" class="blog-read-more">Read Article</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQs -->
+    <section class="faq-section">
+      <div class="container">
+        <div class="section-title animate-on-scroll">
+          <span class="eyebrow">Good to know</span>
+          <h2>Frequently asked</h2>
+          <p>How the Glow Blog works, and how to get an answer we haven't written yet.</p>
+        </div>
+
+        <div class="faq-list animate-on-scroll delay-1">
+
+          <details class="faq-item">
+            <summary class="faq-q">
+              Are these articles reviewed by a professional?
+              <span class="faq-icon"><i class="ph ph-caret-down"></i></span>
+            </summary>
+            <div class="faq-a">
+              <p>Yes. Every piece is written by our formulation team and read by a consultant
+                dermatologist before it goes live. Where a claim comes from a specific study, we
+                say so in the article rather than rounding it up to "clinically proven".</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">
+              Will you tell me to buy something in every post?
+              <span class="faq-icon"><i class="ph ph-caret-down"></i></span>
+            </summary>
+            <div class="faq-a">
+              <p>No. Plenty of our advice costs nothing — using lukewarm water, applying serum to
+                damp skin, giving an active six weeks before judging it.</p>
+              <p>When we do mention a Lumiere product it's because it fits the point being made,
+                and we'll happily name the ingredient so you can find it elsewhere.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">
+              Can I ask a question or suggest a topic?
+              <span class="faq-icon"><i class="ph ph-caret-down"></i></span>
+            </summary>
+            <div class="faq-a">
+              <p>Please do. Send it through the <a href="contact.html" class="text-accent">contact
+                  form</a> and an advisor will reply directly — usually within two working days.
+                The questions we get asked most often become the next articles.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="logo" style="margin-bottom: var(--space-2);"><img
+              src="assets/images/lumiere-logo.svg" alt="Lumiere" width="219" height="80"></a>
+          <p class="text-muted" style="max-width: 300px;">
+            Soft, safe, and transparent skincare designed to bring out your natural, radiant glow.
+          </p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+            <a href="#" aria-label="TikTok"><i class="ph ph-tiktok-logo"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="ph ph-pinterest-logo"></i></a>
+            <a href="contact.html" aria-label="Email"><i class="ph ph-envelope-simple"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <div class="footer-links">
+            <a href="products.html">All Products</a>
+            <a href="products.html?category=cleansers">Cleansers</a>
+            <a href="products.html?category=serums">Serums</a>
+            <a href="products.html?category=moisturizers">Moisturizers</a>
+            <a href="products.html?category=sunscreens">Sunscreens</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Discover</h4>
+          <div class="footer-links">
+            <a href="about.html">Our Story</a>
+            <a href="blog.html">The Glow Blog</a>
+            <a href="products.html#consultation">Skin Consultation</a>
+            <a href="about.html">Ingredients Glossary</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Support</h4>
+          <div class="footer-links">
+            <a href="contact.html">Contact Us</a>
+            <a href="contact.html">Shipping &amp; Returns</a>
+            <a href="login.html">Your Account</a>
+            <a href="register.html">Create Account</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Lumiere. All rights reserved.</p>
+        <p>Made with care for every skin type.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>
+
+
+
+

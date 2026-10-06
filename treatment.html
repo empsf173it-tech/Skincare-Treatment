@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumiere | Skincare Treatments</title>
+  <!-- Favicon: inline SVG, no extra request -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23c47668'/><path d='M16 5.5c4.2 5.4 6.7 9 6.7 12.1a6.7 6.7 0 0 1-13.4 0C9.3 14.5 11.8 10.9 16 5.5z' fill='%23fdfbf7'/></svg>">
+  <meta name="theme-color" content="#c47668">
+  <meta name="description"
+    content="Discover Lumiere's targeted skincare treatments, serums, and routines designed for deep nourishment and skin health.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    .treatments-section {
+      background: var(--bg-primary);
+      padding: var(--space-8) 0;
+    }
+
+    .treatment-card {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: var(--space-6);
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+    }
+    
+    .treatment-card:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .treatment-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .treatment-photo {
+      flex: 1 1 50%;
+      position: relative;
+      background: var(--bg-secondary);
+    }
+
+    .treatment-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .treatment-content {
+      flex: 1 1 50%;
+      padding: var(--space-5);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .treatment-content h2 {
+      margin-bottom: var(--space-2);
+      color: var(--text-main);
+    }
+
+    .treatment-content p {
+      color: var(--text-muted);
+      margin-bottom: var(--space-3);
+      font-size: 1.05rem;
+    }
+
+    .treatment-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--space-4) 0;
+    }
+
+    .treatment-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .treatment-features i {
+      color: var(--color-accent);
+      font-size: 1.25rem;
+    }
+    
+    @media (max-width: 900px) {
+      .treatment-card,
+      .treatment-card:nth-child(even) {
+        flex-direction: column;
+      }
+      .treatment-photo {
+        min-height: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo"><img src="assets/images/lumiere-logo.svg" alt="Lumiere" width="219" height="80"></a>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="products.html" class="nav-link">Products</a></li>
+          <li><a href="treatment.html" class="nav-link active">Treatments</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="blog.html" class="nav-link">Blog</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="icon-btn theme-toggle" aria-label="Toggle Theme"><i class="ph ph-moon"></i></button>
+          <a href="login.html" class="btn btn-outline" style="padding: 8px 20px;">Login</a>
+        </div>
+        <button class="hamburger" aria-label="Open Menu"><i class="ph ph-list"></i></button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- DRAWER -->
+  <div class="drawer-overlay"></div>
+  <div class="drawer">
+    <div class="drawer-header">
+      <div class="logo"><img src="assets/images/lumiere-logo.svg" alt="Lumiere" width="219" height="80"></div>
+      <button class="drawer-close" aria-label="Close Menu"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="drawer-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="products.html" class="nav-link">Products</a>
+      <a href="treatment.html" class="nav-link active">Treatments</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <div class="drawer-actions">
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Toggle Theme"><i class="ph ph-moon"></i></button>
+      </div>
+      <a href="login.html" class="btn btn-outline">Login</a>
+    </div>
+  </div>
+
+  <main>
+    <div class="page-header">
+      <div class="container">
+        <span class="eyebrow">Targeted Care</span>
+        <h1>Advanced <span class="text-gradient">Treatments.</span></h1>
+        <p class="lead">Potent, active-driven serums and rituals formulated to address specific skin concerns while keeping the barrier strong.</p>
+      </div>
+    </div>
+
+    <!-- TREATMENTS LIST -->
+    <section class="treatments-section">
+      <div class="container">
+        
+        <!-- Treatment 1 -->
+        <article class="treatment-card animate-on-scroll">
+          <div class="treatment-photo">
+            <img src="assets/images/product-serum-dewy-hydrating.jpg" alt="Applying a treatment serum" loading="lazy">
+          </div>
+          <div class="treatment-content">
+            <span class="eyebrow">Deep Hydration</span>
+            <h2>Lumiere Plumping Ritual</h2>
+            <p>A multi-layered hydration approach for parched, tired skin. We combine multi-molecular hyaluronic acid with panthenol to pull moisture deep into the epidermis and lock it there for 24 hours.</p>
+            <ul class="treatment-features">
+              <li><i class="ph-fill ph-drop"></i> 2% Multi-Weight Hyaluronic Acid</li>
+              <li><i class="ph-fill ph-plant"></i> Centella Asiatica Extract</li>
+              <li><i class="ph-fill ph-shield-check"></i> Repairs compromised barriers</li>
+            </ul>
+            <div>
+              <a href="products.html?category=serums" class="btn btn-primary">Shop Hydrating Serums <i class="ph ph-arrow-right"></i></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Treatment 2 -->
+        <article class="treatment-card animate-on-scroll">
+          <div class="treatment-photo">
+            <img src="assets/images/category-serums-with-box.jpg" alt="Niacinamide Clarity Serum" loading="lazy">
+          </div>
+          <div class="treatment-content">
+            <span class="eyebrow">Clarity & Brightening</span>
+            <h2>Niacinamide Clarity Treatment</h2>
+            <p>Banish dullness and uneven texture. This gentle but highly effective treatment regulates sebum production, visibly minimizes pores, and fades post-blemish marks over time.</p>
+            <ul class="treatment-features">
+              <li><i class="ph-fill ph-sparkle"></i> 10% Pure Niacinamide (Vitamin B3)</li>
+              <li><i class="ph-fill ph-sun"></i> Zinc PCA for oil control</li>
+              <li><i class="ph-fill ph-check-circle"></i> Improves skin texture in 14 days</li>
+            </ul>
+            <div>
+              <a href="products.html?category=serums" class="btn btn-primary">Explore Clarity Collection <i class="ph ph-arrow-right"></i></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Treatment 3 -->
+        <article class="treatment-card animate-on-scroll">
+          <div class="treatment-photo">
+            <img src="assets/images/product-barrier-repair-cream.jpg" alt="Evening repair routine" loading="lazy">
+          </div>
+          <div class="treatment-content">
+            <span class="eyebrow">Overnight Recovery</span>
+            <h2>Evening Repair Ritual</h2>
+            <p>The night is when your skin does its hardest work. Our overnight treatment protocol feeds the skin barrier with ceramides, squalane, and oat lipid while you sleep, ensuring you wake up refreshed.</p>
+            <ul class="treatment-features">
+              <li><i class="ph-fill ph-moon"></i> Vegan Ceramides & Cholesterol</li>
+              <li><i class="ph-fill ph-leaf"></i> Olive-Derived Squalane</li>
+              <li><i class="ph-fill ph-heart"></i> Perfect for sensitive, reactive skin</li>
+            </ul>
+            <div>
+              <a href="products.html?category=moisturizers" class="btn btn-primary">Shop Night Rituals <i class="ph ph-arrow-right"></i></a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="logo" style="margin-bottom: var(--space-2);"><img src="assets/images/lumiere-logo.svg" alt="Lumiere" width="219" height="80"></a>
+          <p class="text-muted" style="max-width: 300px;">
+            Soft, safe, and transparent skincare designed to bring out your natural, radiant skin.
+          </p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+            <a href="#" aria-label="TikTok"><i class="ph ph-tiktok-logo"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="ph ph-pinterest-logo"></i></a>
+            <a href="contact.html" aria-label="Email"><i class="ph ph-envelope-simple"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <div class="footer-links">
+            <a href="products.html">All Products</a>
+            <a href="products.html?category=cleansers">Cleansers</a>
+            <a href="products.html?category=serums">Serums</a>
+            <a href="products.html?category=moisturizers">Moisturizers</a>
+            <a href="products.html?category=sunscreens">Sunscreens</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Discover</h4>
+          <div class="footer-links">
+            <a href="about.html">Our Story</a>
+            <a href="blog.html">The Lumiere Blog</a>
+            <a href="treatment.html">Treatments</a>
+            <a href="products.html#consultation">Skin Consultation</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Support</h4>
+          <div class="footer-links">
+            <a href="contact.html">Contact Us</a>
+            <a href="contact.html">Shipping &amp; Returns</a>
+            <a href="login.html">Your Account</a>
+            <a href="register.html">Create Account</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Lumiere. All rights reserved.</p>
+        <p>Made with care for every skin type.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>
+
+

@@ -1,0 +1,1416 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumiere | Skincare &amp; Beauty Products Store</title>
+  <!-- Favicon: inline SVG, no extra request -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23c47668'/><path d='M16 5.5c4.2 5.4 6.7 9 6.7 12.1a6.7 6.7 0 0 1-13.4 0C9.3 14.5 11.8 10.9 16 5.5z' fill='%23fdfbf7'/></svg>">
+  <meta name="theme-color" content="#c47668">
+  <meta name="description"
+    content="Lumiere is a premium skincare & beauty products store focusing on soft, radiant, and skin-first ingredients.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    /* =====================================================
+      HOME PAGE
+    ===================================================== */
+    .hero-home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: calc(76px + var(--space-6)) 0 var(--space-8);
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: var(--space-6);
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content {
+      text-align: center;
+    }
+
+    .hero-content h1 {
+      margin-bottom: var(--space-3);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+    }
+
+    .hero-trust {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-3);
+      margin-top: var(--space-5);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.87rem;
+      color: var(--text-muted);
+    }
+
+    .trust-item i {
+      color: var(--color-accent);
+      font-size: 1.2rem;
+    }
+
+    /* Hero visual */
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-frame {
+      position: relative;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      box-shadow: var(--shadow-lift);
+      border: 1px solid var(--border-color);
+    }
+
+    .hero-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-chip {
+      position: absolute;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: var(--radius-soft);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-hover);
+      font-size: 0.85rem;
+    }
+
+    .hero-chip strong {
+      display: block;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .hero-chip span {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+    }
+
+    .hero-chip i {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--color-accent-soft);
+      color: var(--color-accent);
+      font-size: 1.2rem;
+    }
+
+    .chip-top {
+      top: 8%;
+      inset-inline-start: -6%;
+    }
+
+    .chip-bottom {
+      bottom: 8%;
+      inset-inline-end: -6%;
+    }
+
+    /* Marquee trust bar */
+    .marquee {
+      overflow: hidden;
+      border-block: 1px solid var(--border-color);
+      background: var(--bg-secondary);
+      padding: var(--space-2) 0;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: var(--space-6);
+      width: max-content;
+      animation: marquee 32s linear infinite;
+    }
+
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      white-space: nowrap;
+    }
+
+    .marquee-item i {
+      color: var(--color-accent);
+      font-size: 1.05rem;
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track {
+        animation: none;
+      }
+    }
+
+    /* Categories */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-3);
+    }
+
+    .category-card {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      display: block;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+    }
+
+    .category-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.9s var(--ease-out);
+    }
+
+    .category-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(38, 24, 20, 0.85) 0%, rgba(38, 24, 20, 0.1) 55%, transparent 100%);
+    }
+
+    .category-card:hover img {
+      transform: scale(1.07);
+    }
+
+    .category-content {
+      position: absolute;
+      bottom: 0;
+      inset-inline: 0;
+      padding: var(--space-3);
+      z-index: 2;
+      color: #fff;
+    }
+
+    .category-title {
+      font-size: 1.25rem;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .category-content p {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.78);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+    }
+
+    /* Brand story */
+    .brand-story {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(30rem 20rem at 15% 10%, var(--color-accent-soft), transparent 60%),
+        radial-gradient(30rem 20rem at 85% 90%, var(--color-sage-soft), transparent 60%),
+        var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8) var(--space-4);
+      text-align: center;
+    }
+
+    /* Ingredients — layout comes from the shared .grid-3 utility */
+    .ingredient-item {
+      text-align: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+    }
+
+    .ingredient-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .ingredient-photo {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--bg-secondary);
+    }
+
+    .ingredient-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.9s var(--ease-out);
+    }
+
+    .ingredient-item:hover .ingredient-photo img {
+      transform: scale(1.06);
+    }
+
+    .ingredient-body {
+      padding: 0 var(--space-3) var(--space-4);
+    }
+
+    .ingredient-icon {
+      position: relative;
+      z-index: 2;
+      width: 62px;
+      height: 62px;
+      margin: -31px auto var(--space-2);
+      background: var(--bg-card);
+      border: 1px solid var(--color-accent-ring);
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      font-size: 1.6rem;
+      color: var(--color-accent);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .ingredient-item p {
+      font-size: 0.92rem;
+    }
+
+    .ingredient-item .badge {
+      margin-top: var(--space-3);
+    }
+
+    /* Steps */
+    .routine-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-3);
+      counter-reset: step;
+    }
+
+    .routine-step {
+      position: relative;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      overflow: hidden;
+      transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+    }
+
+    .routine-step:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .routine-photo {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--bg-secondary);
+    }
+
+    .routine-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.9s var(--ease-out);
+    }
+
+    .routine-step:hover .routine-photo img {
+      transform: scale(1.06);
+    }
+
+    /* Kept only as far up as the numeral needs for legibility. */
+    .routine-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(38, 24, 20, 0.62), transparent 38%);
+    }
+
+    .routine-photo .step-num {
+      counter-increment: step;
+      position: absolute;
+      bottom: 12px;
+      inset-inline-start: 14px;
+      z-index: 2;
+      font-family: var(--font-heading);
+      font-size: 1.9rem;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .routine-photo .step-num::before {
+      content: '0' counter(step);
+    }
+
+    .routine-body {
+      padding: var(--space-3);
+      text-align: center;
+    }
+
+    .routine-step h4 {
+      margin-bottom: 6px;
+    }
+
+    .routine-step p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0 auto;
+      max-width: 30ch;
+    }
+
+    /* Testimonials — layout comes from the shared .grid-3 utility */
+    .testimonial-card {
+      background: var(--bg-card);
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: var(--space-2);
+      transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .stars {
+      color: #d8a24a;
+      letter-spacing: 2px;
+      font-size: 0.95rem;
+    }
+
+    .testimonial-card blockquote {
+      font-family: var(--font-heading);
+      font-size: 1.08rem;
+      line-height: 1.5;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+      /* Four-line box keeps the product strip level across all three cards */
+      min-height: calc(1.5em * 4);
+    }
+
+    .reviewer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: auto;
+      padding-top: var(--space-1);
+    }
+
+    .reviewer-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--bg-secondary);
+      border: 2px solid var(--bg-card);
+      box-shadow: 0 0 0 1px var(--border-strong), var(--shadow-xs);
+      flex-shrink: 0;
+    }
+
+    .reviewer p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .reviewer small {
+      color: var(--text-faint);
+      font-size: 0.78rem;
+    }
+
+    .testimonial-product {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    .testimonial-product img {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .testimonial-product span {
+      display: block;
+    }
+
+    .testimonial-product .tp-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+
+    .testimonial-product .tp-name {
+      font-size: 0.88rem;
+      color: var(--text-main);
+      line-height: 1.35;
+      min-height: calc(1.35em * 2);
+    }
+
+    /* Routine finder (interactive) */
+    .finder {
+      background:
+        radial-gradient(34rem 20rem at 12% 0%, var(--color-accent-soft), transparent 62%),
+        radial-gradient(30rem 20rem at 88% 100%, var(--color-sage-soft), transparent 62%),
+        var(--bg-secondary);
+      border-block: 1px solid var(--border-color);
+    }
+
+    .finder-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      padding: var(--space-4);
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: var(--space-4);
+      align-items: start;
+    }
+
+    .finder-controls {
+      border-inline-end: 1px solid var(--border-color);
+      padding-inline-end: var(--space-4);
+      text-align: center;
+    }
+
+    .finder-controls .choice-group {
+      justify-content: center;
+    }
+
+    .finder-q {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .finder-controls .choice-group {
+      margin-bottom: var(--space-4);
+    }
+
+    .finder-total {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+      text-align: center;
+    }
+
+    .finder-total .amount {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      color: var(--color-accent);
+      display: block;
+      line-height: 1.1;
+    }
+
+    .finder-total small {
+      color: var(--text-faint);
+      font-size: 0.78rem;
+    }
+
+    #routineSummary {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: var(--space-3);
+      text-align: center;
+    }
+
+    #routineSummary strong {
+      color: var(--color-accent);
+    }
+
+    .routine-result {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-2);
+    }
+
+    .routine-card {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+      background: var(--bg-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+      transition: border-color 0.3s ease, transform 0.3s var(--ease-out);
+    }
+
+    .routine-card:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-3px);
+    }
+
+    .routine-card.pop-in {
+      animation: popIn 0.5s var(--ease-out) both;
+      animation-delay: var(--card-delay, 0ms);
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .routine-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .routine-step-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: var(--color-accent-soft);
+      color: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    .routine-step-name {
+      font-size: 0.74rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+
+    /* Fixed line boxes so the badge, copy and footer sit on the same
+       baseline in all four cards, whatever the product name's length. */
+    .routine-card h4 {
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1.3;
+      min-height: calc(1.3em * 2);
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      overflow: hidden;
+    }
+
+    .routine-card p {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin: 0;
+      flex-grow: 1;
+      line-height: 1.55;
+      min-height: calc(1.55em * 3);
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      overflow: hidden;
+    }
+
+    .routine-card .badge {
+      align-self: center;
+    }
+
+    .routine-card-foot {
+      width: 100%;
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: var(--space-3);
+      margin-top: 4px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .routine-price {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: var(--space-8) 0;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(40rem 24rem at 50% 120%, var(--color-accent-soft), transparent 65%),
+        var(--bg-secondary);
+      border-block: 1px solid var(--border-color);
+    }
+
+    /* Side by side but tight: pull the floating chips back in so they
+       don't clip against the viewport edge. */
+    @media (min-width: 1024px) and (max-width: 1200px) {
+
+      /* Drop the 100vh stretch here — it was padding the hero out with
+         empty space above and below the content. */
+      .hero-home {
+        min-height: auto;
+        padding: calc(76px + var(--space-4)) 0 var(--space-5);
+      }
+
+      .hero-grid {
+        gap: var(--space-4);
+      }
+
+      .hero-frame {
+        aspect-ratio: 5 / 6;
+      }
+
+      .chip-top {
+        inset-inline-start: -2%;
+      }
+
+      .chip-bottom {
+        inset-inline-end: -2%;
+      }
+    }
+
+    /* The hero stays two-up at 1024 and only stacks below it —
+       text first, image underneath, which is the DOM order already. */
+    @media (max-width: 1023px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-5);
+      }
+
+      .hero-home {
+        min-height: auto;
+        padding-top: calc(76px + var(--space-5));
+      }
+
+      .hero-visual {
+        max-width: 420px;
+        margin-inline: auto;
+        width: 100%;
+      }
+
+      .chip-top {
+        inset-inline-start: 4%;
+      }
+
+      .chip-bottom {
+        inset-inline-end: 4%;
+      }
+    }
+
+    @media (max-width: 1024px) {
+
+      .categories-grid,
+      .routine-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .finder-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .finder-controls {
+        border-inline-end: none;
+        border-bottom: 1px solid var(--border-color);
+        padding-inline-end: 0;
+        padding-bottom: var(--space-3);
+      }
+    }
+
+    @media (max-width: 560px) {
+
+      .categories-grid,
+      .routine-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .routine-result {
+        grid-template-columns: 1fr;
+      }
+
+      .finder-panel {
+        padding: var(--space-3);
+        border-radius: var(--radius-lg);
+      }
+
+      /* Chips drop out of the frame and stack under the image rather than
+         being hidden — they carry the proof points. */
+      .hero-visual {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hero-chip {
+        position: static;
+        width: 100%;
+        margin-top: var(--space-2);
+        background: var(--bg-card);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: var(--shadow-soft);
+        animation: none;
+      }
+
+      .brand-story {
+        padding: var(--space-6) var(--space-3);
+        border-radius: var(--radius-lg);
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        max-width: 320px;
+        margin-inline: auto;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .hero-trust {
+        flex-direction: column;
+        align-items: flex-start;
+        width: fit-content;
+        margin-inline: auto;
+        gap: var(--space-2);
+        padding-top: var(--space-4);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo"><img src="assets/images/lumiere-logo.svg" alt="Lumiere" width="219" height="80"></a>
+
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="products.html" class="nav-link">Products</a></li>
+          <li><a href="treatment.html" class="nav-link">Treatments</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="blog.html" class="nav-link">Blog</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="icon-btn theme-toggle" aria-label="Toggle Theme">
+            <i class="ph ph-moon"></i>
+          </button>
+          <a href="login.html" class="btn btn-outline btn-sm">Login</a>
+        </div>
+
+        <button class="hamburger" aria-label="Open Menu">
+          <i class="ph ph-list"></i>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER -->
+  <div class="drawer-overlay"></div>
+  <div class="drawer">
+    <div class="drawer-header">
+      <div class="logo"><img src="assets/images/lumiere-logo.svg" alt="Lumiere" width="219" height="80"></div>
+      <button class="drawer-close" aria-label="Close Menu">
+        <i class="ph ph-x"></i>
+      </button>
+    </div>
+
+    <div class="drawer-links">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="products.html" class="nav-link">Products</a>
+      <a href="treatment.html" class="nav-link">Treatments</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+
+    <div class="drawer-actions">
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Toggle Theme">
+          <i class="ph ph-moon"></i>
+        </button>
+      </div>
+      <a href="login.html" class="btn btn-outline">Login</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO -->
+
+    <section class="hero-home">
+      <div class="aura float-anim"
+        style="width: 380px; height: 380px; background: var(--color-accent); opacity: 0.16; top: -6%; inset-inline-end: -4%;">
+      </div>
+      <div class="aura"
+        style="width: 320px; height: 320px; background: var(--color-sage); opacity: 0.14; bottom: -10%; inset-inline-start: -8%;">
+      </div>
+
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <span class="eyebrow animate-on-scroll">Skin-first formulations</span>
+
+            <h1 class="animate-on-scroll delay-1">
+              <span class="typing-text" style="--type-width: 13ch;">Radiant skin,</span><br>
+              bottled <span class="text-gradient">beautifully.</span>
+            </h1>
+
+            <p class="lead animate-on-scroll delay-2">
+              Dewy, barrier-friendly formulas with every ingredient printed in full —
+              percentages included. No mystery blends, no harsh surprises.
+            </p>
+
+            <div class="hero-actions animate-on-scroll delay-3">
+              <a href="products.html" class="btn btn-primary btn-lg">
+                Shop the collection
+              </a>
+              <a href="products.html#consultation" class="btn btn-outline btn-lg">
+                Free skin consultation
+              </a>
+            </div>
+
+            <div class="hero-trust animate-on-scroll delay-4">
+              <span class="trust-item"><i class="ph ph-flask"></i> Full INCI disclosure</span>
+              <span class="trust-item"><i class="ph ph-rabbit"></i> Cruelty-free &amp; vegan</span>
+              <span class="trust-item"><i class="ph ph-heart"></i> 2,100+ happy customers</span>
+            </div>
+          </div>
+
+          <div class="hero-visual animate-on-scroll delay-2">
+            <div class="hero-frame">
+              <img src="assets/images/hero-dewy-serum-with-box.jpg"
+                alt="Lumiere serum bottle and box on a soft cream backdrop" width="1000" height="1250" loading="eager">
+            </div>
+
+            <div class="hero-chip chip-top float-anim">
+              <i class="ph ph-drop"></i>
+              <div>
+                <strong>2% Hyaluronic Acid</strong>
+                <span>Listed at exact strength</span>
+              </div>
+            </div>
+
+            <div class="hero-chip chip-bottom">
+              <i class="ph ph-star"></i>
+              <div>
+                <strong>4.8 / 5 average</strong>
+                <span>From 2,100+ reviews</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span class="marquee-item"><i class="ph ph-leaf"></i> Vegan formulas</span>
+        <span class="marquee-item"><i class="ph ph-prohibit"></i> No added fragrance</span>
+        <span class="marquee-item"><i class="ph ph-percent"></i> Actives at stated strength</span>
+        <span class="marquee-item"><i class="ph ph-recycle"></i> Refillable packaging</span>
+        <span class="marquee-item"><i class="ph ph-seal-check"></i> Dermatologist reviewed</span>
+        <span class="marquee-item"><i class="ph ph-leaf"></i> Vegan formulas</span>
+        <span class="marquee-item"><i class="ph ph-prohibit"></i> No added fragrance</span>
+        <span class="marquee-item"><i class="ph ph-percent"></i> Actives at stated strength</span>
+        <span class="marquee-item"><i class="ph ph-recycle"></i> Refillable packaging</span>
+        <span class="marquee-item"><i class="ph ph-seal-check"></i> Dermatologist reviewed</span>
+      </div>
+    </div>
+
+    <!-- PRODUCT CATEGORIES -->
+    <section>
+      <div class="container">
+        <div class="section-title animate-on-scroll">
+          <span class="eyebrow">Shop by category</span>
+          <h2>Curated essentials, four steps</h2>
+          <p>Everything your routine needs — and deliberately nothing it doesn't.</p>
+        </div>
+        <div class="categories-grid animate-on-scroll delay-1">
+          <a href="products.html?category=cleansers" class="category-card">
+            <img src="assets/images/category-cleansers-with-box.jpg" alt="Lumiere Cleansers" width="800" height="800"
+              loading="lazy">
+            <div class="category-content">
+              <h3 class="category-title">Cleansers</h3>
+              <p><i class="ph ph-drop"></i> Balanced pH, never stripping</p>
+            </div>
+          </a>
+          <a href="products.html?category=serums" class="category-card">
+            <img src="assets/images/category-serums-with-box.jpg" alt="Lumiere Serums" width="800" height="800"
+              loading="lazy">
+            <div class="category-content">
+              <h3 class="category-title">Serums</h3>
+              <p><i class="ph ph-sparkle"></i> Targeted actives, honest %</p>
+            </div>
+          </a>
+          <a href="products.html?category=moisturizers" class="category-card">
+            <img src="assets/images/category-moisturizers-with-box.jpg" alt="Lumiere Moisturizers" width="800"
+              height="800" loading="lazy">
+            <div class="category-content">
+              <h3 class="category-title">Moisturizers</h3>
+              <p><i class="ph ph-cloud"></i> Barrier-first hydration</p>
+            </div>
+          </a>
+          <a href="products.html?category=sunscreens" class="category-card">
+            <img src="assets/images/category-sunscreens-with-box.jpg" alt="Lumiere Sunscreens" width="800" height="800"
+              loading="lazy">
+            <div class="category-content">
+              <h3 class="category-title">Sunscreens</h3>
+              <p><i class="ph ph-sun"></i> No white cast, any tone</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRAND STORY -->
+    <section style="padding-top: var(--space-3);">
+      <div class="container">
+        <div class="brand-story animate-on-scroll">
+          <span class="eyebrow" style="justify-content: center;">Our promise</span>
+          <h2>Soft, safe, transparent</h2>
+          <p class="lead" style="margin: var(--space-3) auto var(--space-4); max-width: 700px;">
+            Skincare shouldn't be a secret. Every Lumiere product lists exactly what's inside, what it does,
+            and why it's there — no clinical jargon, just pure, skin-loving ingredients.
+          </p>
+          <div style="display: flex; gap: var(--space-2); justify-content: center; flex-wrap: wrap;">
+            <a href="about.html" class="btn btn-primary">Our philosophy</a>
+            <a href="products.html" class="btn btn-outline">Read the labels</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- INGREDIENT HIGHLIGHTS -->
+    <section>
+      <div class="container">
+        <div class="section-title animate-on-scroll">
+          <span class="eyebrow">Ingredient transparency</span>
+          <h2>Hero ingredients</h2>
+          <p>The gentle powerhouses behind our glowing results — at strengths we publish.</p>
+        </div>
+
+        <div class="ingredients-grid grid-3 animate-on-scroll delay-1">
+          <div class="ingredient-item">
+            <div class="ingredient-photo">
+              <img src="assets/images/ingredient-hyaluronic-acid.jpg" alt="Lumiere Hyaluronic Acid serum bottle"
+                width="700" height="500" loading="lazy">
+            </div>
+            <div class="ingredient-body">
+              <div class="ingredient-icon"><i class="ph ph-drop"></i></div>
+              <h4>Hyaluronic Acid</h4>
+              <p class="text-muted">Draws moisture into the skin for a plump, dewy finish that lasts all day.</p>
+              <span class="badge">Used at 2%</span>
+            </div>
+          </div>
+
+          <div class="ingredient-item">
+            <div class="ingredient-photo">
+              <img src="assets/images/ingredient-niacinamide.jpg" alt="Lumiere Niacinamide serum on a soft surface"
+                width="700" height="500" loading="lazy">
+            </div>
+            <div class="ingredient-body">
+              <div class="ingredient-icon"><i class="ph ph-sparkle"></i></div>
+              <h4>Niacinamide</h4>
+              <p class="text-muted">A brightening vitamin B3 derivative that evens tone and refines texture.</p>
+              <span class="badge">Used at 4–10%</span>
+            </div>
+          </div>
+
+          <div class="ingredient-item">
+            <div class="ingredient-photo">
+              <img src="assets/images/ingredient-centella-asiatica.jpg"
+                alt="Lumiere Centella Asiatica botanical skincare" width="700" height="500" loading="lazy">
+            </div>
+            <div class="ingredient-body">
+              <div class="ingredient-icon"><i class="ph ph-leaf"></i></div>
+              <h4>Centella Asiatica</h4>
+              <p class="text-muted">Also known as Cica — a botanical extract that calms redness and soothes irritation.
+              </p>
+              <span class="badge">Used at 2%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROUTINE -->
+    <section style="padding-top: 0;">
+      <div class="container">
+        <div class="section-title animate-on-scroll">
+          <span class="eyebrow">How to layer</span>
+          <h2>A routine that takes four minutes</h2>
+        </div>
+
+        <div class="routine-grid animate-on-scroll delay-1">
+          <div class="routine-step">
+            <div class="routine-photo">
+              <img src="assets/images/routine-cleanse.jpg" alt="Lumiere gel cleanser" width="700" height="700"
+                loading="lazy">
+              <span class="step-num"></span>
+            </div>
+            <div class="routine-body">
+              <h4>Cleanse</h4>
+              <p>Lift oil, SPF and grime with a pH-balanced gel or balm — never a squeaky finish.</p>
+            </div>
+          </div>
+
+          <div class="routine-step">
+            <div class="routine-photo">
+              <img src="assets/images/routine-treat.jpg" alt="Lumiere treatment serum" width="700" height="700"
+                loading="lazy">
+              <span class="step-num"></span>
+            </div>
+            <div class="routine-body">
+              <h4>Treat</h4>
+              <p>Apply your serum to damp skin so the humectants have water to hold on to.</p>
+            </div>
+          </div>
+
+          <div class="routine-step">
+            <div class="routine-photo">
+              <img src="assets/images/routine-moisturize.jpg" alt="Lumiere barrier repair cream" width="700" height="700"
+                loading="lazy">
+              <span class="step-num"></span>
+            </div>
+            <div class="routine-body">
+              <h4>Moisturize</h4>
+              <p>Seal it in with ceramides or a light gel, depending on how your skin feels that day.</p>
+            </div>
+          </div>
+
+          <div class="routine-step">
+            <div class="routine-photo">
+              <img src="assets/images/routine-protect.jpg" alt="Lumiere daily sunscreen" width="700" height="700"
+                loading="lazy">
+              <span class="step-num"></span>
+            </div>
+            <div class="routine-body">
+              <h4>Protect</h4>
+              <p>Finish every morning with SPF 30+. It's the step that makes the rest worth doing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- INTERACTIVE ROUTINE FINDER -->
+    <section class="finder" id="routineFinder">
+      <div class="container">
+        <div class="section-title animate-on-scroll">
+          <span class="eyebrow">Interactive</span>
+          <h2>Build your routine in two taps</h2>
+          <p>Tell us your skin type and what's bothering you — the four steps update instantly.</p>
+        </div>
+
+        <div class="finder-panel animate-on-scroll delay-1">
+
+          <div class="finder-controls">
+            <span class="finder-q">1 — Your skin type</span>
+            <div class="choice-group">
+              <label class="choice"><input type="radio" name="rfSkin" value="oily"><span><i class="ph ph-drop"></i>
+                  Oily</span></label>
+              <label class="choice"><input type="radio" name="rfSkin" value="dry"><span><i class="ph ph-wind"></i>
+                  Dry</span></label>
+              <label class="choice"><input type="radio" name="rfSkin" value="combination" checked><span><i
+                    class="ph ph-circle-half"></i> Combination</span></label>
+              <label class="choice"><input type="radio" name="rfSkin" value="sensitive"><span><i
+                    class="ph ph-feather"></i> Sensitive</span></label>
+              <label class="choice"><input type="radio" name="rfSkin" value="normal"><span><i class="ph ph-smiley"></i>
+                  Normal</span></label>
+            </div>
+
+            <span class="finder-q">2 — Main concern</span>
+            <div class="choice-group">
+              <label class="choice"><input type="radio" name="rfConcern" value="acne"><span>Breakouts</span></label>
+              <label class="choice"><input type="radio" name="rfConcern" value="dryness"
+                  checked><span>Dryness</span></label>
+              <label class="choice"><input type="radio" name="rfConcern" value="oiliness"><span>Excess
+                  oil</span></label>
+              <label class="choice"><input type="radio" name="rfConcern" value="pigmentation"><span>Dark
+                  spots</span></label>
+              <label class="choice"><input type="radio" name="rfConcern" value="redness"><span>Redness</span></label>
+              <label class="choice"><input type="radio" name="rfConcern" value="dullness"><span>Dullness</span></label>
+            </div>
+
+            <div class="finder-total">
+              <span class="amount" id="routineTotal">$0</span>
+              <small>Full routine, four products</small>
+            </div>
+          </div>
+
+          <div>
+            <p id="routineSummary" role="status"></p>
+
+            <div class="routine-result" id="routineResult"></div>
+
+            <div
+              style="display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2); margin-top: var(--space-4);">
+              <a href="products.html" class="btn btn-primary" id="routineShopLink">
+                Shop this routine
+              </a>
+              <a href="products.html#consultation" class="btn btn-outline">Ask an advisor instead</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section>
+      <div class="container">
+        <div class="section-title animate-on-scroll">
+          <span class="eyebrow">Skin journeys</span>
+          <h2>What people notice first</h2>
+        </div>
+
+        <div class="testimonial-grid grid-3 animate-on-scroll delay-1">
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+            </div>
+            <blockquote>"My skin has never felt softer. The transparency about ingredients gave me the confidence to try
+              it."</blockquote>
+            <div class="testimonial-product">
+              <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=1287&auto=format&fit=crop"
+                alt="Dewy Hydrating Serum" loading="lazy">
+              <div>
+                <span class="tp-label">Using</span>
+                <span class="tp-name">Dewy Hydrating Serum</span>
+              </div>
+            </div>
+            <div class="reviewer">
+              <img class="reviewer-avatar" src="assets/images/reviewer-sarah.jpg" alt="Sarah J." loading="lazy"
+                width="48" height="48">
+              <div>
+                <p>Sarah J.</p>
+                <small>Combination skin · 4 months in</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+            </div>
+            <blockquote>"The barrier cream is incredible. It feels light but hydrates perfectly all day long."
+            </blockquote>
+            <div class="testimonial-product">
+              <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=1353&auto=format&fit=crop"
+                alt="Barrier Repair Cream" loading="lazy">
+              <div>
+                <span class="tp-label">Using</span>
+                <span class="tp-name">Barrier Repair Cream</span>
+              </div>
+            </div>
+            <div class="reviewer">
+              <img class="reviewer-avatar" src="assets/images/reviewer-elena.jpg" alt="Elena M." loading="lazy"
+                width="48" height="48">
+              <div>
+                <p>Elena M.</p>
+                <small>Dry skin · 7 months in</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+            </div>
+            <blockquote>"Finally, products that don't irritate my sensitive skin — and a label I can actually read."
+            </blockquote>
+            <div class="testimonial-product">
+              <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1287&auto=format&fit=crop"
+                alt="Oat Milk Cleansing Balm" loading="lazy">
+              <div>
+                <span class="tp-label">Using</span>
+                <span class="tp-name">Oat Milk Cleansing Balm</span>
+              </div>
+            </div>
+            <div class="reviewer">
+              <img class="reviewer-avatar" src="assets/images/reviewer-chloe.jpg" alt="Chloe T." loading="lazy"
+                width="48" height="48">
+              <div>
+                <p>Chloe T.</p>
+                <small>Sensitive skin · 1 year in</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container animate-on-scroll">
+        <span class="eyebrow" style="justify-content: center;">No obligation</span>
+        <h2 style="margin-bottom: var(--space-2);">Not sure what your skin needs?</h2>
+        <p class="lead" style="margin: 0 auto var(--space-4); max-width: 560px;">
+          Answer a few questions and our advisors will write you a routine — including what to skip.
+        </p>
+        <a href="products.html#consultation" class="btn btn-primary btn-lg">
+          Start your consultation
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="logo" style="margin-bottom: var(--space-2);"><img src="assets/images/lumiere-logo.svg" alt="Lumiere" width="219" height="80"></a>
+          <p class="text-muted" style="max-width: 300px;">
+            Soft, safe, and transparent skincare designed to bring out your natural, radiant glow.
+          </p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+            <a href="#" aria-label="TikTok"><i class="ph ph-tiktok-logo"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="ph ph-pinterest-logo"></i></a>
+            <a href="contact.html" aria-label="Email"><i class="ph ph-envelope-simple"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <div class="footer-links">
+            <a href="products.html">All Products</a>
+            <a href="products.html?category=cleansers">Cleansers</a>
+            <a href="products.html?category=serums">Serums</a>
+            <a href="products.html?category=moisturizers">Moisturizers</a>
+            <a href="products.html?category=sunscreens">Sunscreens</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Discover</h4>
+          <div class="footer-links">
+            <a href="about.html">Our Story</a>
+            <a href="blog.html">The Glow Blog</a>
+            <a href="products.html#consultation">Skin Consultation</a>
+            <a href="about.html">Ingredients Glossary</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Support</h4>
+          <div class="footer-links">
+            <a href="contact.html">Contact Us</a>
+            <a href="contact.html">Shipping &amp; Returns</a>
+            <a href="login.html">Your Account</a>
+            <a href="register.html">Create Account</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Lumiere. All rights reserved.</p>
+        <p>Made with care for every skin type.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/home.js"></script>
+</body>
+
+</html>
+
+
+
+

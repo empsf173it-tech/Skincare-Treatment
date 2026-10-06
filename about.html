@@ -1,0 +1,541 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumiere | About Us</title>
+  <!-- Favicon: inline SVG, no extra request -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23c47668'/><path d='M16 5.5c4.2 5.4 6.7 9 6.7 12.1a6.7 6.7 0 0 1-13.4 0C9.3 14.5 11.8 10.9 16 5.5z' fill='%23fdfbf7'/></svg>">
+  <meta name="theme-color" content="#c47668">
+  <meta name="description"
+    content="Learn about Lumiere's philosophy, our story, and our commitment to clean, transparent skincare.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    /* Sits directly under the hero, so it uses the page background
+       instead of the hero's blush — otherwise the two bleed together. */
+    .mission-section {
+      background: var(--bg-primary);
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--space-4) 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      background: var(--border-color);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 50%;
+      position: relative;
+      margin-bottom: var(--space-5);
+    }
+
+    .timeline-item:nth-child(even) {
+      justify-content: flex-start;
+      padding-right: 0;
+      padding-left: 50%;
+    }
+
+    .timeline-content {
+      width: 80%;
+      padding: var(--space-4) var(--space-3);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      text-align: center;
+      transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out),
+        border-color 0.3s ease;
+    }
+
+    .timeline-content:hover {
+      transform: translateY(-5px);
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .timeline-content h4 {
+      color: var(--color-accent);
+      margin-bottom: 6px;
+    }
+
+    .timeline-content h3 {
+      margin-bottom: 8px;
+    }
+
+    .timeline-content p {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+      max-width: 34ch;
+      margin-inline: auto;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      top: 34px;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 0 4px var(--bg-primary);
+      transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+    }
+
+    /* The marker on the spine reacts along with its card */
+    .timeline-item:hover::after {
+      transform: translateX(-50%) scale(1.35);
+      box-shadow: 0 0 0 4px var(--bg-primary), 0 0 0 9px var(--color-accent-soft);
+    }
+
+    html[dir="rtl"] .timeline-item {
+      padding-right: 0;
+      padding-left: 50%;
+      justify-content: flex-start;
+    }
+
+    html[dir="rtl"] .timeline-item:nth-child(even) {
+      padding-left: 0;
+      padding-right: 50%;
+      justify-content: flex-end;
+    }
+
+    /* Founders — layout comes from the shared .grid-3 utility */
+    .founder-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+    }
+
+    .founder-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .founder-photo {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: var(--bg-secondary);
+    }
+
+    .founder-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      transition: transform 0.9s var(--ease-out);
+    }
+
+    .founder-card:hover .founder-photo img {
+      transform: scale(1.06);
+    }
+
+    .founder-body {
+      padding: var(--space-3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 6px;
+      flex-grow: 1;
+    }
+
+    .founder-role {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+    }
+
+    .founder-body h3 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .founder-body p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* Only the bio absorbs the extra height, so the quotes stay aligned */
+    .founder-body>p:not(.founder-quote) {
+      flex-grow: 1;
+    }
+
+    .founder-quote {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--text-main);
+      margin-top: var(--space-2);
+      padding-top: var(--space-2);
+      border-top: 1px solid var(--border-color);
+      width: 100%;
+    }
+
+    .founder-foot {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      margin-top: var(--space-3);
+      padding-top: var(--space-2);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .founder-social {
+      display: flex;
+      gap: 8px;
+    }
+
+    .founder-social a {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .founder-social a:hover {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .timeline::before {
+        left: 20px;
+      }
+
+      .timeline-item {
+        padding-right: 0;
+        padding-left: 50px !important;
+        justify-content: flex-start !important;
+      }
+
+      .timeline-content {
+        width: 100%;
+      }
+
+      .timeline-item::after {
+        left: 20px;
+      }
+
+      html[dir="rtl"] .timeline::before {
+        left: auto;
+        right: 20px;
+      }
+
+      html[dir="rtl"] .timeline-item {
+        padding-left: 0 !important;
+        padding-right: 50px !important;
+        justify-content: flex-start !important;
+      }
+
+      html[dir="rtl"] .timeline-item::after {
+        left: auto;
+        right: 20px;
+        transform: translateX(50%);
+      }
+
+      html[dir="rtl"] .timeline-item:hover::after {
+        transform: translateX(50%) scale(1.35);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER (Same as index) -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo"><img src="assets/images/lumiere-logo.svg" alt="Lumiere" width="219"
+            height="80"></a>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="products.html" class="nav-link">Products</a></li>
+          <li><a href="treatment.html" class="nav-link">Treatments</a></li>
+          <li><a href="about.html" class="nav-link active">About</a></li>
+          <li><a href="blog.html" class="nav-link">Blog</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="icon-btn theme-toggle" aria-label="Toggle Theme"><i class="ph ph-moon"></i></button>
+          <a href="login.html" class="btn btn-outline" style="padding: 8px 20px;">Login</a>
+        </div>
+        <button class="hamburger" aria-label="Open Menu"><i class="ph ph-list"></i></button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- DRAWER -->
+  <div class="drawer-overlay"></div>
+  <div class="drawer">
+    <div class="drawer-header">
+      <div class="logo"><img src="assets/images/lumiere-logo.svg" alt="Lumiere" width="219" height="80"></div>
+      <button class="drawer-close" aria-label="Close Menu"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="drawer-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="products.html" class="nav-link">Products</a>
+      <a href="treatment.html" class="nav-link">Treatments</a>
+      <a href="about.html" class="nav-link active">About</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <div class="drawer-actions">
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Toggle Theme"><i class="ph ph-moon"></i></button>
+      </div>
+      <a href="login.html" class="btn btn-outline">Login</a>
+    </div>
+  </div>
+
+  <main>
+    <div class="page-header page-hero-photo">
+      <div class="page-hero-media" aria-hidden="true">
+        <img src="assets/images/hero-about-story.jpg" alt="">
+      </div>
+      <div class="container">
+        <span class="eyebrow">Our story</span>
+        <h1>Skincare without <span class="text-gradient">secrets.</span></h1>
+        <p class="lead">We believe you have the right to know exactly what you are putting on your
+          skin, why it's there, and what it does.</p>
+      </div>
+    </div>
+
+    <!-- MISSION -->
+    <section class="mission-section">
+      <div class="container">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-6);">
+          <div style="flex: 1 1 400px;" class="animate-on-scroll">
+            <img src="assets/images/mission-philosophy.jpg" alt="Lumiere skincare texture" width="900" height="1000"
+              loading="lazy" style="border-radius: var(--radius-soft);">
+          </div>
+          <div style="flex: 1 1 400px; text-align: center;" class="animate-on-scroll delay-1">
+            <h2>Our Philosophy</h2>
+            <p>At Lumiere, we strip away the clinical jargon and the empty marketing promises. Our formulations are
+              rooted in science but designed for comfort, focusing on restoring your skin's natural barrier and leaving
+              you with a dewy, healthy glow.</p>
+            <p>Every ingredient is intentionally chosen. If it doesn't serve a clear purpose or benefit your skin's
+              health, it doesn't make the cut.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- FOUNDERS -->
+    <section>
+      <div class="container">
+        <div class="section-title animate-on-scroll">
+          <span class="eyebrow">The people behind it</span>
+          <h2>Meet the founders</h2>
+          <p>Three people who got tired of guessing what was in the bottle — and decided to print it instead.</p>
+        </div>
+
+        <div class="founders-grid grid-3">
+          <article class="founder-card animate-on-scroll">
+            <div class="founder-photo">
+              <img src="assets/images/founder-amara-okafor.jpg" alt="Amara Okafor, Lumiere co-founder and formulator"
+                width="800" height="1000" loading="lazy">
+            </div>
+            <div class="founder-body">
+              <span class="founder-role">Co-founder &amp; Formulator</span>
+              <h3>Amara Okafor</h3>
+              <p>Cosmetic chemist with a decade in lab work, and the reason every percentage on our cartons is exact.
+              </p>
+              <p class="founder-quote">"If I can't defend an ingredient in one sentence, it doesn't belong in the
+                formula."</p>
+              <div class="founder-foot">
+                <span class="badge badge-neutral">Formulation</span>
+                <div class="founder-social">
+                  <a href="#" aria-label="Amara on Instagram"><i class="ph ph-instagram-logo"></i></a>
+                  <a href="contact.html" aria-label="Email Amara"><i class="ph ph-envelope-simple"></i></a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="founder-card animate-on-scroll delay-1">
+            <div class="founder-photo">
+              <img src="assets/images/founder-lina-persson.jpg"
+                alt="Lina Persson, Lumiere co-founder and head of product" width="800" height="1000" loading="lazy">
+            </div>
+            <div class="founder-body">
+              <span class="founder-role">Co-founder &amp; Head of Product</span>
+              <h3>Lina Persson</h3>
+              <p>Runs sourcing and packaging, and fought for the refill system long before it was easy to produce.</p>
+              <p class="founder-quote">"A good product should be a short list of things that all earn their place."</p>
+              <div class="founder-foot">
+                <span class="badge badge-neutral">Product</span>
+                <div class="founder-social">
+                  <a href="#" aria-label="Lina on Instagram"><i class="ph ph-instagram-logo"></i></a>
+                  <a href="contact.html" aria-label="Email Lina"><i class="ph ph-envelope-simple"></i></a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="founder-card animate-on-scroll delay-2">
+            <div class="founder-photo">
+              <img src="assets/images/founder-rhea-kapoor.jpg" alt="Rhea Kapoor, Lumiere co-founder and skin advisor"
+                width="800" height="1000" loading="lazy">
+            </div>
+            <div class="founder-body">
+              <span class="founder-role">Co-founder &amp; Skin Advisor</span>
+              <h3>Rhea Kapoor</h3>
+              <p>Answers the consultation queue personally, and will happily tell you to buy fewer products.</p>
+              <p class="founder-quote">"Most skin problems are a routine problem, not a shopping problem."</p>
+              <div class="founder-foot">
+                <span class="badge badge-neutral">Consultations</span>
+                <div class="founder-social">
+                  <a href="#" aria-label="Rhea on Instagram"><i class="ph ph-instagram-logo"></i></a>
+                  <a href="contact.html" aria-label="Email Rhea"><i class="ph ph-envelope-simple"></i></a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section>
+      <div class="container">
+        <div class="section-title animate-on-scroll">
+          <h2>Our Journey</h2>
+          <p>From a kitchen experiment to a skincare movement.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item animate-on-scroll">
+            <div class="timeline-content">
+              <h4>2021</h4>
+              <h3>The Idea</h3>
+              <p>Frustrated by complex labels and irritated skin, our founder set out to create a truly transparent
+                moisturizer.</p>
+            </div>
+          </div>
+          <div class="timeline-item animate-on-scroll delay-1">
+            <div class="timeline-content">
+              <h4>2023</h4>
+              <h3>The Launch</h3>
+              <p>Lumiere debuted with a core collection of 4 essentials. No fluff, just effective hydration and
+                protection.</p>
+            </div>
+          </div>
+          <div class="timeline-item animate-on-scroll delay-2">
+            <div class="timeline-content">
+              <h4>2025</h4>
+              <h3>Global Glow</h3>
+              <p>We expanded our shipping internationally, bringing transparent skincare to over 20 countries.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="logo" style="margin-bottom: var(--space-2);"><img
+              src="assets/images/lumiere-logo.svg" alt="Lumiere" width="219" height="80"></a>
+          <p class="text-muted" style="max-width: 300px;">
+            Soft, safe, and transparent skincare designed to bring out your natural, radiant glow.
+          </p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+            <a href="#" aria-label="TikTok"><i class="ph ph-tiktok-logo"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="ph ph-pinterest-logo"></i></a>
+            <a href="contact.html" aria-label="Email"><i class="ph ph-envelope-simple"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <div class="footer-links">
+            <a href="products.html">All Products</a>
+            <a href="products.html?category=cleansers">Cleansers</a>
+            <a href="products.html?category=serums">Serums</a>
+            <a href="products.html?category=moisturizers">Moisturizers</a>
+            <a href="products.html?category=sunscreens">Sunscreens</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Discover</h4>
+          <div class="footer-links">
+            <a href="about.html">Our Story</a>
+            <a href="blog.html">The Glow Blog</a>
+            <a href="products.html#consultation">Skin Consultation</a>
+            <a href="about.html">Ingredients Glossary</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Support</h4>
+          <div class="footer-links">
+            <a href="contact.html">Contact Us</a>
+            <a href="contact.html">Shipping &amp; Returns</a>
+            <a href="login.html">Your Account</a>
+            <a href="register.html">Create Account</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Lumiere. All rights reserved.</p>
+        <p>Made with care for every skin type.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>
+
+
+
+
